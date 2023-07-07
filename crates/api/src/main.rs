@@ -1,9 +1,11 @@
 use axum::{routing::get, Router, extract::State};
+use tracing::info;
 use util::add;
 use shuttle_persist::PersistInstance;
 
 async fn hello_world() -> String {
     let answer = add(40, 2);
+    info!("saying hello");
     format!("Hello, world! The answer is {answer}")
 }
 
@@ -12,6 +14,8 @@ async fn count(state: State<MyState>) -> String {
     let key = "count";
     let count = persist.load::<u32>(key).unwrap_or_default();
     let persist_result = persist.save(key, count + 1);
+    info!("incremented count");
+
     match persist_result {
         Ok(_) => format!("current count is {count}"),
         Err(e) => format!("Could not persist new count! Error: {e}"),
@@ -47,6 +51,8 @@ async fn axum(
         .route("/count", get(count))
         .route("/other", get(ask_other_service))
         .with_state(state);
+
+    info!("Finished setting up service...");
 
     Ok(router.into())
 }

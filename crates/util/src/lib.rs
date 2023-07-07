@@ -1,4 +1,7 @@
+use tracing::info;
+
 pub fn add(left: usize, right: usize) -> usize {
+    info!("doing some addition");
     left + right
 }
 

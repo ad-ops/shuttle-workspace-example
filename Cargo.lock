@@ -85,6 +85,7 @@ dependencies = [
  "shuttle-persist",
  "shuttle-runtime",
  "tokio",
+ "tracing",
  "util",
 ]
 
@@ -2694,6 +2695,9 @@ checksum = "e8db7427f936968176eaa7cdf81b7f98b980b18495ec28f1b5791ac3bfe3eea9"
 [[package]]
 name = "util"
 version = "0.1.0"
+dependencies = [
+ "tracing",
+]
 
 [[package]]
 name = "uuid"
